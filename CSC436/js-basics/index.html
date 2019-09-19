@@ -110,7 +110,7 @@
             }
             else {
                 //TODO:: REPLACE [chicagoStartups.reverse()] WITH A FUNCTION CALLED "chicagoStartupsReverse"
-                chicagoStartups.reverse().forEach( function(startup) {
+                chicagoStartupsReverse().forEach( function(startup) {
                     var childDiv = document.createElement('div');
                     var text = document.createTextNode(startup);
                     childDiv.appendChild(text);
@@ -133,6 +133,11 @@
                     DATA STRUTUCTURES REGARDLESS OF THE PROGRAMMING LANGUAGE
         
         */
+        var index = chicagoStartups.length - 1;
+        for (var i = 0; i < chicagoStartups.length; i++) {
+            reversedStartups[i] = chicagoStartups[index];
+            index--;
+        }
         return reversedStartups;
     }
 
