@@ -95,6 +95,11 @@
         var reverseContainer = document.getElementById('reverseContainer');
         var reversedChicagoStartups = [];
         if (reverseContainer) {
+            // If reverseContainer has child nodes (has been clicked)
+            // Push list of chicagoStartups into reversedCS[] from reverseContainer
+            // starting with the last child to reverse the list
+            // Print to console and reload into reverseContainer
+            
             if (reverseContainer.hasChildNodes()) {
                 while (reverseContainer.hasChildNodes()) {
                     reversedChicagoStartups.push(reverseContainer.lastChild.innerHTML);
@@ -108,6 +113,7 @@
                     reverseContainer.appendChild(childDiv);
                 });
             }
+            // On first Reverse button click, display reverse list on page
             else {
                 //TODO:: REPLACE [chicagoStartups.reverse()] WITH A FUNCTION CALLED "chicagoStartupsReverse"
                 chicagoStartupsReverse().forEach( function(startup) {
@@ -149,12 +155,13 @@
               DONT FORGET TO REMOVE LEADING AND TRAILING WHITESPACES AS WELL
         */
         for (var i = 0; i < chicagoStartups.length; i++) {
-            // Remove whitespace from both sides of string
-            chicagoStartups[i] = chicagoStartups[i].trim();
-            // Uses regex to remove special chars, keeps spaces in between words
+            // replace() and trim() remove whitespace from both sides of string
+            // Uses regex to remove special chararacters, keep letters and numbers
+            // keeps spaces in between words
             chicagoStartups[i] = chicagoStartups[i].replace(/[^a-zA-Z0-9 ]/g, '');
-            console.log(chicagoStartups[i] + " length: " + chicagoStartups[i].length);
-            console.log(typeof chicagoStartups[i]);
+            chicagoStartups[i] = chicagoStartups[i].trim();
+            // Print the number of remaining characters next to the full word
+            console.log(chicagoStartups[i] + " Name length: " + chicagoStartups[i].length);
         }
 
 
@@ -172,6 +179,20 @@
         document.getElementById('rootContainer').appendChild(reverseButtonContainer);
         document.getElementById('rootContainer').appendChild(reverseContainer);
     }
+    
+    // initialize a toggle button
+    function initToggle() {
+        var toggleContainer = document.createElement('div');
+        toggleContainer.id = 'toggleContainer';
+        var toggleBtn = document.createElement('button');
+        var btnText = document.createTextNode('Toggle');
+        toggleBtn.onclick = toggleDisplay;
+        toggleBtn.appendChild(btnText);
+        var toggleButtonContainer = document.createElement('div');
+        toggleButtonContainer.appendChild(toggleBtn);
+        document.getElementById('rootContainer').appendChild(toggleButtonContainer);
+        document.getElementById('rootContainer').appendChild(toggleContainer);
+    }
 
     function toggleDisplay() {
         /*
@@ -188,16 +209,53 @@
 
             3.  
         */
+        // Get toggle container (made in initToggle()) by id to hold startup names
+        var toggleContainer = document.getElementById('toggleContainer');
+        // Create empty array to load in strings to toggle
+        // var toggledChicagoStartups = [];
+
+        if (toggleContainer) {
+            // If toggleContainer has child nodes (has been clicked once before)
+            while (toggleContainer.hasChildNodes()) {
+                    // chicagoStartups.push(toggleContainer.firstChild.innerHTML);
+                    toggleContainer.removeChild(toggleContainer.firstChild);
+            }
+            if (!flags.direction) {
+                // remove nodes in toggleContainer to be able to load them as div
+                chicagoStartups.forEach(function(startup, index) {
+                    // console.log(startup);
+                    var childDiv = document.createElement('div');
+                    // var text = document.createTextNode(startup);
+                    var text = document.createTextNode(' ' + index.toString().concat('.) ').concat(startup));
+                    childDiv.appendChild(text);
+                    toggleContainer.appendChild(childDiv);
+                });
+                flags.direction = true;
+            }
+            // On first Toggle button click, display horizontal list on page
+            else {  
+                chicagoStartups.forEach( function(startup, index) {
+                    var childDiv = document.createElement('span');
+                    // var text = document.createTextNode(startup);
+                    var text = document.createTextNode(' ' + index.toString().concat('.) ').concat(startup));
+                    childDiv.appendChild(text);
+                    toggleContainer.appendChild(childDiv);
+                });
+                flags.direction = false;
+            }
+        }
     }
     
     function run() {
         initDocument();
         initReverse();
+        initToggle();
     }
     run();
     
     var flags = {
-        displayInstructions: true
+        displayInstructions: true,
+        direction: true
     };
 
     //TODO INVOKE THIS ANONYMOUS FUNCTION TO DISPLAY HOMEWORK INSTRUCTIONS IN THE CONSOLE
