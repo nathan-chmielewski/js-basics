@@ -148,6 +148,15 @@
               DISPLAYS THE NUMBER OF REMAINING CHARACTERS NEXT TO THE FULL WORD.
               DONT FORGET TO REMOVE LEADING AND TRAILING WHITESPACES AS WELL
         */
+        for (var i = 0; i < chicagoStartups.length; i++) {
+            // Remove whitespace from both sides of string
+            chicagoStartups[i] = chicagoStartups[i].trim();
+            // Uses regex to remove special chars, keeps spaces in between words
+            chicagoStartups[i] = chicagoStartups[i].replace(/[^a-zA-Z0-9 ]/g, '');
+            console.log(chicagoStartups[i] + " length: " + chicagoStartups[i].length);
+            console.log(typeof chicagoStartups[i]);
+        }
+
 
     }
     
@@ -226,7 +235,7 @@
 
                         `);
         }
-        
-    });
+        // Invoke expression with () in betwen ) and ;
+    })();
 
 </script>
