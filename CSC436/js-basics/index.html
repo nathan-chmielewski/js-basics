@@ -34,15 +34,15 @@
     }
 
     .red {
-        background-image: red;
+        background-color: red;
     }
 
     .blue {
-        background-image: blue;
+        background-color: blue;
     }
 
     .gold {
-        background-image: gold;
+        background-color: gold;
     }
 </style>
 
@@ -108,6 +108,9 @@
                 reversedChicagoStartups.forEach(function(chicagoStartup, index) {
                     console.log(chicagoStartup);
                     var childDiv = document.createElement('div');
+                    if (index%2 === 0) {
+                        childDiv.classList.add(colors[1]);
+                    }
                     var text = document.createTextNode(chicagoStartup);
                     childDiv.appendChild(text);
                     reverseContainer.appendChild(childDiv);
@@ -215,28 +218,31 @@
         // var toggledChicagoStartups = [];
 
         if (toggleContainer) {
-            // If toggleContainer has child nodes (has been clicked once before)
+            // if toggleContainer has nodes, 
+            // remove nodes in toggleContainer to be able to load them as div or span
             while (toggleContainer.hasChildNodes()) {
-                    // chicagoStartups.push(toggleContainer.firstChild.innerHTML);
                     toggleContainer.removeChild(toggleContainer.firstChild);
             }
+
+            // Display vertical list on page
             if (!flags.direction) {
-                // remove nodes in toggleContainer to be able to load them as div
                 chicagoStartups.forEach(function(startup, index) {
                     // console.log(startup);
                     var childDiv = document.createElement('div');
                     // var text = document.createTextNode(startup);
                     var text = document.createTextNode(' ' + index.toString().concat('.) ').concat(startup));
+                    childDiv.classList.add(colors[0]);
                     childDiv.appendChild(text);
                     toggleContainer.appendChild(childDiv);
                 });
                 flags.direction = true;
             }
-            // On first Toggle button click, display horizontal list on page
+            // Display horizontal list on page
             else {  
                 chicagoStartups.forEach( function(startup, index) {
                     var childDiv = document.createElement('span');
                     // var text = document.createTextNode(startup);
+                    childDiv.classList.add(colors[2]);
                     var text = document.createTextNode(' ' + index.toString().concat('.) ').concat(startup));
                     childDiv.appendChild(text);
                     toggleContainer.appendChild(childDiv);
