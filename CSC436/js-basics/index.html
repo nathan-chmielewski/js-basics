@@ -109,7 +109,7 @@
                     console.log(chicagoStartup);
                     var childDiv = document.createElement('div');
                     if (index%2 === 0) {
-                        childDiv.classList.add(colors[1]);
+                        // childDiv.classList.add(colors[1]);
                     }
                     var text = document.createTextNode(chicagoStartup);
                     childDiv.appendChild(text);
@@ -175,6 +175,7 @@
         reverseContainer.id = 'reverseContainer';
         var reverseBtn = document.createElement('button');
         var btnText = document.createTextNode('Reverse');
+        reverseBtn.classList.add(colors[2]);
         reverseBtn.onclick = renderReversedElements;
         reverseBtn.appendChild(btnText);
         var reverseButtonContainer = document.createElement('div');
@@ -189,6 +190,7 @@
         toggleContainer.id = 'toggleContainer';
         var toggleBtn = document.createElement('button');
         var btnText = document.createTextNode('Toggle');
+        toggleBtn.classList.add(colors[0]);
         toggleBtn.onclick = toggleDisplay;
         toggleBtn.appendChild(btnText);
         var toggleButtonContainer = document.createElement('div');
@@ -231,7 +233,7 @@
                     var childDiv = document.createElement('div');
                     // var text = document.createTextNode(startup);
                     var text = document.createTextNode(' ' + index.toString().concat('.) ').concat(startup));
-                    childDiv.classList.add(colors[0]);
+                    // childDiv.classList.add(colors[0]);
                     childDiv.appendChild(text);
                     toggleContainer.appendChild(childDiv);
                 });
@@ -242,7 +244,7 @@
                 chicagoStartups.forEach( function(startup, index) {
                     var childDiv = document.createElement('span');
                     // var text = document.createTextNode(startup);
-                    childDiv.classList.add(colors[2]);
+                    // childDiv.classList.add(colors[2]);
                     var text = document.createTextNode(' ' + index.toString().concat('.) ').concat(startup));
                     childDiv.appendChild(text);
                     toggleContainer.appendChild(childDiv);
