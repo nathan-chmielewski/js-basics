@@ -11,38 +11,35 @@
 <style>
     #rootContainer {
         display: flex;
-
     }
     .root-container {
         position: relative;
     }
-
     .root-container .header {
         position: relative;
     }
-
     .root-container .main {
         position: relative;
     }
-
     .root-container .footer {
         position: relative;
     }
-
     .startups-container {
         background-color: gray;
     }
-
     .red {
         background-color: red;
     }
-
     .blue {
         background-color: blue;
     }
-
     .gold {
         background-color: gold;
+    }
+    .table {
+        border: 1px dotted black;
+        padding: 4px;
+        text-align: left;
     }
 </style>
 
@@ -66,7 +63,6 @@
         'Shiftgig',
         'ParkWhiz'
     ];
-
     function clearDocument() {
         var rootDiv = document.getElementById('rootContainer');
         if (rootDiv) {
@@ -75,7 +71,6 @@
             }
         }
     }
-
     function initDocument() {
         clearDocument();
         var rootDiv = document.createElement('div');
@@ -90,7 +85,6 @@
         rootDiv.appendChild(companyNamesContainer);
         document.body.appendChild(rootDiv);
     }
-
     function renderReversedElements() {
         var reverseContainer = document.getElementById('reverseContainer');
         var reversedChicagoStartups = [];
@@ -128,16 +122,13 @@
             }
         }
     }
-
     function chicagoStartupsReverse() {
         var reversedStartups = [];
         /*
             TODO: REVERSE THE CONTENTS OF THE ARRAY WITHOUT USING THE BUILT IN REVERSE METHOD
                   RETURN THE REVERSED ARRAY
-
             TIPS: 
                 1.  REVIEW JAVASCRIPT ARRAY DATA STRUCTURE AND THE BUILTIN METHODS PROVIDED TO ALL ARRAYS
-
                 2.  THIS IS A COMMON JOB INTERVIEW QUESTION, THAT SHOULD BE SOLVABLE BASED ON AN UNDERSTANDING OF
                     DATA STRUTUCTURES REGARDLESS OF THE PROGRAMMING LANGUAGE
         
@@ -149,7 +140,6 @@
         }
         return reversedStartups;
     }
-
     function cleanAndCountCharacters() {
         console.log('CLEAN AND COUNT CHARACTERS');
         /*
@@ -157,6 +147,7 @@
               DISPLAYS THE NUMBER OF REMAINING CHARACTERS NEXT TO THE FULL WORD.
               DONT FORGET TO REMOVE LEADING AND TRAILING WHITESPACES AS WELL
         */
+
         for (var i = 0; i < chicagoStartups.length; i++) {
             // replace() and trim() remove whitespace from both sides of string
             // Uses regex to remove special chararacters, keep letters and numbers
@@ -165,9 +156,65 @@
             chicagoStartups[i] = chicagoStartups[i].trim();
             // Print the number of remaining characters next to the full word
             console.log(chicagoStartups[i] + " Name length: " + chicagoStartups[i].length);
+            
+            // Call function to display character count
+            displayCountCharacters();
         }
+    }
 
+    function displayCountCharacters() { 
+        let charMap = {};
+        // Create var to store char when stepping through string
+        let char, total;
+        for (var i = 0; i < chicagoStartups.length; i++) {
+            // Walk through characters in chicagoStartups[i]
+            for (let j = 0; j < chicagoStartups[i].length; j++) {
+                // Add .toLowerCase() to combine capital and lowercase letters in map count
+                char = chicagoStartups[i].charAt(j);
 
+                // if the char is in charMap, total will equal the current char count 
+                    // stored in char property in map
+                // if char is not in charMap, total will equal undefined
+                total = charMap[char];
+                // Use only '==' not '===' because type coercion needs to happen
+                if (total == undefined) {
+                    // add char as property to map, set property to equal 1
+                        // e.g. charMap.a will equal 1 if its the first instance of 'a'
+                    if (char !== " ") {
+                        charMap[char] = 1;
+                    }
+                }
+                else {
+                    // char is already in charMap as a property
+                    // increment property total
+                    charMap[char] = total + 1;
+                }
+            }
+        }
+        var countContainer = document.getElementById('countContainer');
+        // Create empty array to load in strings to toggle
+        if (countContainer) {
+            // if countContainer has nodes, 
+            // remove nodes in countContainer to be able to load them as div or span
+            while (countContainer.hasChildNodes()) {
+                countContainer.removeChild(countContainer.firstChild);
+            }
+            // Display list on page
+            var childDiv = document.createElement('div');
+            var text = document.createTextNode("Character count");
+            
+            childDiv.appendChild(text);
+            countContainer.appendChild(childDiv);
+            for (let mapProp in charMap) {
+                childDiv = document.createElement('div');
+                childDiv.classList.add('table');
+
+                // var text = document.createTextNode("character: " + mapProp + ", " + "count: " + charMap[mapProp]);
+                text = document.createTextNode(mapProp + ": " + charMap[mapProp]);
+                childDiv.appendChild(text);
+                countContainer.appendChild(childDiv);
+            }
+        }
     }
     
     function initReverse() {
@@ -184,7 +231,7 @@
         document.getElementById('rootContainer').appendChild(reverseContainer);
     }
     
-    // initialize a toggle button
+    // initialize a toggle button, used initReverse() as reference
     function initToggle() {
         var toggleContainer = document.createElement('div');
         toggleContainer.id = 'toggleContainer';
@@ -199,33 +246,34 @@
         document.getElementById('rootContainer').appendChild(toggleContainer);
     }
 
+    function initCount() {
+        var countContainer = document.createElement('div');
+        countContainer.id = 'countContainer';
+        document.getElementById('rootContainer').appendChild(countContainer);
+    }
+
     function toggleDisplay() {
         /*
         TODO: REVIEW THE CODE IN THE PROVIDED REVERSE EXAMPLE, USE JAVASCRIPT TO ADD A CLICKABLE BUTTON 
         CALLED "Toggle Display" ... WHEN THE USER CLICKS THE BUTTON, IT RENDERS THE DISPLAY OF THE COMPANY NAMES 
         FROM VERTICAL, TO HORIZONTAL.
         IF THE USER CLICKS THE TOGGLE BUTTON AGAIN THE NAMES SHOULD ONCE AGAIN BE DISPLAYED VERTICALLY.
-
         TIPS: 
             1.  MAKE SURE TO READ AND UNDERSTAND THE DIFFERENCE BETWEEN BLOCK ELEMENTS SUCH AS A DIV, 
                 AND INLINE ELEMENTS SUCH AS A SPAN.
-
             2.  DIVIDE AND CONQUER.
-
             3.  
         */
         // Get toggle container (made in initToggle()) by id to hold startup names
         var toggleContainer = document.getElementById('toggleContainer');
         // Create empty array to load in strings to toggle
         // var toggledChicagoStartups = [];
-
         if (toggleContainer) {
             // if toggleContainer has nodes, 
             // remove nodes in toggleContainer to be able to load them as div or span
             while (toggleContainer.hasChildNodes()) {
                     toggleContainer.removeChild(toggleContainer.firstChild);
             }
-
             // Display vertical list on page
             if (!flags.direction) {
                 chicagoStartups.forEach(function(startup, index) {
@@ -258,14 +306,15 @@
         initDocument();
         initReverse();
         initToggle();
+        initCount();
     }
     run();
     
     var flags = {
         displayInstructions: true,
-        direction: true
-    };
+        direction: true,
 
+    };
     //TODO INVOKE THIS ANONYMOUS FUNCTION TO DISPLAY HOMEWORK INSTRUCTIONS IN THE CONSOLE
     (function() {
         if (flags.displayInstructions) {
@@ -274,34 +323,25 @@
                                          TODO INDICATES THAT A SOLUTION IS REQUIRED
                                          PLEASE INCLUDE YOUR GITHUB URL AS A COMMENT
                                          EX. // https://github.com/Chandler-Gegg/javascript101.git
-
                             Feel free to complete the exercises in whatever order you like.  
-
                             Make sure to push your code to your own github repo as well as SUBMIT A ZIPFILE TO D2L.
                             HOMEWORK IS DUE WEDNESDAYS AT MIDNIGHT NO EXCEPTIONS.
                             dont forget to slack me the url to your github account as well.  
-
                             You can earn extra credit by using the provided css classes in the style tag or additionally 
                             you can pull in an external css library like bootstrap.  if you bring in bootstrap make sure to style
                             the buttons using bootstraps built in button styling classes.
-
                             Additionally, can earn extra credit by using an object to count the number of occurrences 
                             of each character accross all startup names and style and display the results as part of the
                             "cleanAndCountCharacters" function.
-
                             If you are having trouble getting started, I would spend a lot of time reviewing the source code provided in the reverse example.
                             Make sure I understand whats going on and do a google search on anything that is confusing.  
                             THE BETTER YOU UNDERSTAND THE EXAMPLE THE EASIER THIS SHOULD BE. THEN REVIEW THE TODOS AND START BY TRYING TO SOLVE THE EASIEST
                             PROBLEM.
-
                             FROM MY OWN EXPERIENCE, I FIND THAT WHEN IM STRUGGLING WITH A PROBLEM, IT USUALLY MEANS
                             I DONT FULLY UNDERSTAND THE TOOLS THAT I AM USING.
-
                             GOOD LUCK, SEE YOU ON THE FLIPPITY FLOP "\_(**/)_/"
-
                         `);
         }
         // Invoke expression with () in betwen ) and ;
     })();
-
 </script>
