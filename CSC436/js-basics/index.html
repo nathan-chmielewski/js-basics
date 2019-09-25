@@ -165,10 +165,12 @@
 
         for (var i = 0; i < chicagoStartups.length; i++) {
             // replace() and trim() remove whitespace from both sides of string
-            // Uses regex to remove special chararacters, keep letters and numbers
-            // keeps spaces in between words
+            // Uses regex to remove special chararacters, 
+            // reduces to one whitespace between words,
+            // keep letters and numbers
             chicagoStartups[i] = chicagoStartups[i].replace(/[^a-zA-Z0-9 ]/g, '');
             chicagoStartups[i] = chicagoStartups[i].trim();
+            chicagoStartups[i] = chicagoStartups[i].replace(/\s+/g, ' ');
             // Print the number of remaining characters next to the full word
             console.log(chicagoStartups[i] + " Name length: " + chicagoStartups[i].length);
             
