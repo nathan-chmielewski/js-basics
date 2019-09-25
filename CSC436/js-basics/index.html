@@ -1,12 +1,26 @@
 <!DOCTYPE html>
 <html>
     <h3>Javascript Basics</h3>
-    <button onclick="cleanAndCountCharacters()">
-        clean and count words
+    <button type="button" 
+            class="btn btn-primary" 
+            onclick="cleanAndCountCharacters()">
+            Clean and Count Words
+    </button>
+    <button type="button" 
+        class="btn btn-primary" 
+        onclick="renderReversedElements()">
+        Reverse
+    </button>
+        <button type="button" 
+        class="btn btn-primary" 
+        onclick="toggleDisplay()">
+        Toggle
     </button>
     <body>
     </body>
 </html>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 <style>
     #rootContainer {
@@ -36,10 +50,12 @@
     .gold {
         background-color: gold;
     }
-    .table {
-        border: 1px dotted black;
-        padding: 4px;
-        text-align: left;
+    .listPadding {
+        padding-left: 20px;
+    }
+    body {
+        padding-left: 40px;
+        padding-top: 20px;
     }
 </style>
 
@@ -102,9 +118,7 @@
                 reversedChicagoStartups.forEach(function(chicagoStartup, index) {
                     console.log(chicagoStartup);
                     var childDiv = document.createElement('div');
-                    if (index%2 === 0) {
-                        // childDiv.classList.add(colors[1]);
-                    }
+                    childDiv.classList.add('listPadding');
                     var text = document.createTextNode(chicagoStartup);
                     childDiv.appendChild(text);
                     reverseContainer.appendChild(childDiv);
@@ -115,6 +129,7 @@
                 //TODO:: REPLACE [chicagoStartups.reverse()] WITH A FUNCTION CALLED "chicagoStartupsReverse"
                 chicagoStartupsReverse().forEach( function(startup) {
                     var childDiv = document.createElement('div');
+                    childDiv.classList.add('listPadding');
                     var text = document.createTextNode(startup);
                     childDiv.appendChild(text);
                     reverseContainer.appendChild(childDiv);
@@ -207,7 +222,7 @@
             countContainer.appendChild(childDiv);
             for (let mapProp in charMap) {
                 childDiv = document.createElement('div');
-                childDiv.classList.add('table');
+                childDiv.classList.add('listPadding');
 
                 // var text = document.createTextNode("character: " + mapProp + ", " + "count: " + charMap[mapProp]);
                 text = document.createTextNode(mapProp + ": " + charMap[mapProp]);
@@ -220,14 +235,6 @@
     function initReverse() {
         var reverseContainer = document.createElement('div');
         reverseContainer.id = 'reverseContainer';
-        var reverseBtn = document.createElement('button');
-        var btnText = document.createTextNode('Reverse');
-        reverseBtn.classList.add(colors[2]);
-        reverseBtn.onclick = renderReversedElements;
-        reverseBtn.appendChild(btnText);
-        var reverseButtonContainer = document.createElement('div');
-        reverseButtonContainer.appendChild(reverseBtn);    
-        document.getElementById('rootContainer').appendChild(reverseButtonContainer);
         document.getElementById('rootContainer').appendChild(reverseContainer);
     }
     
@@ -235,14 +242,6 @@
     function initToggle() {
         var toggleContainer = document.createElement('div');
         toggleContainer.id = 'toggleContainer';
-        var toggleBtn = document.createElement('button');
-        var btnText = document.createTextNode('Toggle');
-        toggleBtn.classList.add(colors[0]);
-        toggleBtn.onclick = toggleDisplay;
-        toggleBtn.appendChild(btnText);
-        var toggleButtonContainer = document.createElement('div');
-        toggleButtonContainer.appendChild(toggleBtn);
-        document.getElementById('rootContainer').appendChild(toggleButtonContainer);
         document.getElementById('rootContainer').appendChild(toggleContainer);
     }
 
@@ -267,7 +266,6 @@
         // Get toggle container (made in initToggle()) by id to hold startup names
         var toggleContainer = document.getElementById('toggleContainer');
         // Create empty array to load in strings to toggle
-        // var toggledChicagoStartups = [];
         if (toggleContainer) {
             // if toggleContainer has nodes, 
             // remove nodes in toggleContainer to be able to load them as div or span
@@ -277,11 +275,9 @@
             // Display vertical list on page
             if (!flags.direction) {
                 chicagoStartups.forEach(function(startup, index) {
-                    // console.log(startup);
                     var childDiv = document.createElement('div');
-                    // var text = document.createTextNode(startup);
+                    childDiv.classList.add('listPadding');
                     var text = document.createTextNode(' ' + index.toString().concat('.) ').concat(startup));
-                    // childDiv.classList.add(colors[0]);
                     childDiv.appendChild(text);
                     toggleContainer.appendChild(childDiv);
                 });
@@ -291,8 +287,8 @@
             else {  
                 chicagoStartups.forEach( function(startup, index) {
                     var childDiv = document.createElement('span');
-                    // var text = document.createTextNode(startup);
-                    // childDiv.classList.add(colors[2]);
+                    childDiv.classList.add('listPadding');
+
                     var text = document.createTextNode(' ' + index.toString().concat('.) ').concat(startup));
                     childDiv.appendChild(text);
                     toggleContainer.appendChild(childDiv);
