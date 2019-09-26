@@ -1,6 +1,6 @@
 # js-basics
 
-github url: https://github.com/njchimmy/js-basics/tree/master/CSC436/js-basics
+github url: https://github.com/nathan-chmielewski/js-basics/tree/master/CSC436/js-basics
 
 - chicagoStartupsReverse manually reverses the master list of startups and returns an array of the reversed list. It does not call .reverse(). 
 - In renderReversed Elements, chicagoStartupsReverse is now called, and there are two additional lines of code to add a css style class for text padding. Lengths of each string are printed next to the string in the console.
